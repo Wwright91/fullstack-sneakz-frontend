@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import ConfirmDelete from "./DeleteConfirmation";
+import { Review } from "./Review";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -32,11 +33,11 @@ export const SneakerDetails = () => {
   };
 
   return (
-    <div className="card-body text-center sneaker-details">
-      <article className="Sneaker-Details">
+    <div className="card-body text-center">
+      <article className="sneaker-details">
         <h3>{name}</h3>
         <h5>{brand}</h5>
-        <img src={img} alt={name} width="300px" height="200px" />
+              <img src={img} alt={name} width="300px" height="200px"/>
         <h3>
           ${price} {used ? "Used" : "Brand New"}
         </h3>
@@ -59,8 +60,9 @@ export const SneakerDetails = () => {
               handleClose={handleClose}
               handleShow={handleShow}
             />
-          </div>
-        </div>
+                  </div>
+              </div>
+              <Review/>
       </article>
     </div>
   );

@@ -38,14 +38,58 @@ a:hover {
   color: white;
 }
 
-.sneaker-index-link:hover, .sneaker-new-button:hover {
+.sneaker-index-link:hover,
+.sneaker-new-button:hover {
   background-color: rgb(187, 105, 112);
+}
+
+.sneakers-index {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  text-align: center;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.sneakers-card {
+  border: 1px solid;
+  padding: 40px;
+  box-shadow: rgba(219, 9, 9, 0.4) 0px 5px, rgba(203, 24, 8, 0.3) 0px 10px,
+    rgba(202, 45, 9, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px,
+    rgba(240, 46, 170, 0.05) 0px 25px;
+}
+
+.sneakers-card a:hover {
+  color: red;
+}
+
+.sneaker-details {
+  /* padding: 0px 20px 0px 0px; */
+  padding: 10px;
+  box-shadow: rgb(164, 4, 4) 6px 6px 6px 30px;
+}
+
+article {
+  margin: 100px 300px 100px 200px;
+  /* padding: 100px; */
 }
 
 .show-buttons {
   flex-direction: row-reverse;
-  padding-right: 550px;
+  padding-right: 350px;
   column-gap: 20px;
+}
+
+input[type="text"] {
+  border: none;
+  border-bottom: 2px solid rgb(220, 42, 42);
+}
+
+.form-img {
+  position: absolute;
+  right: 50px;
+  top: 270px;
 }
 
 #footer {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
+import { Card, Container, Table } from "react-bootstrap";
 import { Sneaker } from "./Sneaker";
 
 const API = process.env.REACT_APP_API_URL;
@@ -23,7 +23,7 @@ export const Sneakers = () => {
           <h1 className="text-center">Check Out Our Collection</h1>
           <br/>
       <section>
-        <Table striped>
+        {/* <Table striped>
           <thead>
             <tr>
               <th>Name</th>
@@ -38,7 +38,15 @@ export const Sneakers = () => {
               return <Sneaker key={sneaker.id} sneaker={sneaker} />;
             })}
           </tbody>
-        </Table>
+        </Table> */}
+              
+              <Container className="sneakers-index">
+                  {/* <Card> */}
+                  {sneakers.map((sneaker) => {
+              return <Sneaker key={sneaker.id} sneaker={sneaker} />;
+            })}
+                  {/* </Card> */}
+              </Container>
       </section>
     </div>
   );

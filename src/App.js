@@ -5,6 +5,7 @@ import { Home } from "./Pages/Home";
 import { Index } from "./Pages/Index";
 import { Show } from "./Pages/Show";
 import { New } from "./Pages/New";
+import { Edit } from "./Pages/Edit";
 import { FourOFour } from "./Pages/FourOFour";
 
 import { NavBar } from "./Components/NavBar";
@@ -19,9 +20,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sneakz" element={<Index />} />
-            <Route path="/sneakz/:id" element={<Show />} />
             <Route path="/sneakz/new" element={<New />} />
-            <Route/>
+            <Route path="/sneakz/:id" element={<Show />} />
+            <Route path="/sneakz/:id/edit" element={<Edit />} />
             <Route/>
             <Route path="*" element={<FourOFour />} />
           </Routes>
