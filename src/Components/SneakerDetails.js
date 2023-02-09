@@ -9,7 +9,7 @@ import { Review } from "./Review";
 const API = process.env.REACT_APP_API_URL;
 
 export const SneakerDetails = () => {
-  const [sneaker, setSong] = useState([]);
+  const [sneaker, setSneaker] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -22,7 +22,7 @@ export const SneakerDetails = () => {
       .get(`${API}/sneakz/${id}`)
       .then((res) => {
         console.log(res.data);
-        setSong(res.data);
+        setSneaker(res.data);
       })
       .catch((c) => console.error("catch", c));
   }, [id]);

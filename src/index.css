@@ -69,7 +69,8 @@ a:hover {
     rgba(240, 46, 170, 0.05) 0px 25px;
 }
 
-.sneakers-card a:hover {
+.sneakers-card a:hover,
+.home-page a:hover {
   color: red;
 }
 
@@ -82,6 +83,21 @@ a:hover {
 article {
   margin: 100px 300px 100px 200px;
   /* padding: 100px; */
+}
+
+.slogan::after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  border-bottom: 3px solid;
+  padding-bottom: 20px;
+  width: 50%;
+}
+
+.home-page-featured {
+  border: 3px solid;
+  padding: 50px 0;
+  margin: 0 400px;
 }
 
 .show-buttons {
