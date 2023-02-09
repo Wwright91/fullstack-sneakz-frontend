@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, Container, Table } from "react-bootstrap";
+import { Container} from "react-bootstrap";
 import { Sneaker } from "./Sneaker";
 
 const API = process.env.REACT_APP_API_URL;

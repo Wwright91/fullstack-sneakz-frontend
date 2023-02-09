@@ -4,22 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { SneakerForm } from "./SneakerForm";
 
 import hero from "../assets/sneakz-logo.jpeg";
-import axios from "axios";
 
 export const NavBar = () => {
   let navigate = useNavigate();
   const returnHome = () => {
     navigate("/");
   };
-
-//   const handleAdd = (newSneaker) => {
-//     axios
-//     .post(`${API}/sneakz`, newSneaker)
-//     .then((res) => )
-//   }
 
   return (
     <div>
@@ -40,8 +32,10 @@ export const NavBar = () => {
         </Navbar.Brand>
         <Button variant="outline-danger" className="sneaker-new-button">
           <Link to="/sneakz/new">New Sneaker</Link>
+              </Button>
+              <Button variant="outline-danger" className="cart-button">
+          <Link to="/sneakz/cart">🛒</Link>
         </Button>
-        {/* <SneakerForm/> */}
       </Navbar>
     </div>
   );

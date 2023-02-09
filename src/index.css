@@ -23,6 +23,15 @@ nav img {
 .sneaker-new-button {
   position: absolute;
   bottom: 0;
+  right: 60px;
+  padding: 10px;
+  background-color: white;
+  margin: 10px;
+}
+
+.cart-button {
+  position: absolute;
+  bottom: 0;
   right: 0;
   padding: 10px;
   background-color: white;

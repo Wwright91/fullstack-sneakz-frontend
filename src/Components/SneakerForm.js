@@ -35,7 +35,7 @@ export const SneakerForm = () => {
         setForm(res.data);
       })
       .catch((error) => console.error("catch", error));
-  }, [id, API]);
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
