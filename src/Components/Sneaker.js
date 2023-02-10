@@ -24,7 +24,9 @@ export const Sneaker = ({ sneaker }) => {
         <img src={img} alt={name} height="200px" width="300px" />
       </Link>
       <p>${price}</p>
-      <p style={{ color: `${color}` }}>{color.toUpperCase()}</p>
+      <p style={color === "white" ? { color: "black" } : { color: `${color}` }}>
+        {color.toUpperCase()}
+      </p>
       <p>{used ? "Used" : "Brand New"}</p>
     </Card>
 

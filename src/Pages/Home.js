@@ -5,14 +5,16 @@ import { Link } from "react-router-dom";
 const API = process.env.REACT_APP_API_URL;
 
 export const Home = () => {
-  const [sneakers, setSneakers] = useState([]);
+    const [sneaker, setSneaker] = useState([]);
+    
+    const { name, brand, img, price, id } = sneaker;
 
   useEffect(() => {
     axios
       .get(`${API}/sneakz`)
       .then((res) => {
         // console.log(res.data)
-        setSneakers(res.data[Math.floor(Math.random() * res.data.length)]);
+        setSneaker(res.data[Math.floor(Math.random() * res.data.length)]);
       })
       .catch((c) => console.error("catch", c));
   }, []);
@@ -25,20 +27,20 @@ export const Home = () => {
       <article className="home-page-featured">
         <h3 className="text-center">⭐️ Featured ⭐️</h3>
         <br />
-        <Link to={`/sneakz/${sneakers.id}`}>
+        <Link to={`/sneakz/${id}`}>
           {" "}
-          <h4>{sneakers.name}</h4>
+          <h4>{name}</h4>
         </Link>
-        <h5>{sneakers.brand}</h5>
-        <Link to={`/sneakz/${sneakers.id}`}>
+        <h5>{brand}</h5>
+        <Link to={`/sneakz/${id}`}>
           <img
-            src={sneakers.img}
-            alt={sneakers.name}
+            src={img}
+            alt={name}
             height="200px"
             width="300px"
           />
               </Link>
-              <h4>Only ${sneakers.price}!!</h4>
+              <h4>Only ${price}!!</h4>
       </article>
     </div>
   );
