@@ -39,9 +39,9 @@ export default function ConfirmDelete({
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Delete Sneaker</Modal.Title>
+          <Modal.Title>Delete Sneakers</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this sneaker?</Modal.Body>
+        <Modal.Body>Are you sure you want to delete these sneakers?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Back
