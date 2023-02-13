@@ -4,21 +4,42 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { Badge } from "react-bootstrap";
 
 import hero from "../assets/sneakz-logo.jpeg";
+import { useSelector } from "react-redux";
 
 export const NavBar = () => {
   let navigate = useNavigate();
+  const cart = useSelector((state) => state.cart);
+
   const returnHome = () => {
     navigate("/");
   };
 
+  // const getAllSneakers = () => {
+// console.log(window.location)
+// const lc = "/sneakz"
+// e.preventDefault()
+//  let path = !window.location.search ? 
+//    'sneakz' : null
+  
+  // if (path) {
+  //   navigate("/sneakz")
+  //   window.location.reload()
+  // }
+    
+    // return path;
+    // onClick={window.location.reload()}
+  // }
+
+
   return (
     <div>
       <Navbar className="justify-content-center">
-        <Nav.Item className="sneaker-index-link">
-          <Link to="/sneakz">All Sneakers</Link>
-        </Nav.Item>
+        <Button className="sneaker-index-link">
+          <Link to={`/sneakz`}>All Sneakers</Link>
+        </Button>
         <Navbar.Brand>
           <img
             className="hero"
@@ -35,6 +56,7 @@ export const NavBar = () => {
               </Button>
               <Button variant="outline-danger" className="cart-button">
           <Link to="/sneakz/cart">🛒</Link>
+          <Badge>{cart.length}</Badge>
         </Button>
       </Navbar>
     </div>

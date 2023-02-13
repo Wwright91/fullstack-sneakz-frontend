@@ -36,8 +36,11 @@ export const SneakerDetails = ({ cartItems, setCartItems, itemAdded, setItemAdde
         console.log(res.data);
         setSneaker(res.data);
       })
-      .catch((c) => console.error("catch", c));
-  }, [id]);
+      .catch((c) => {
+        navigate("/404");
+        console.error("catch", c)
+      });
+  }, [id, navigate]);
 
   const goBack = (e) => {
     e.preventDefault();
@@ -124,7 +127,7 @@ export const SneakerDetails = ({ cartItems, setCartItems, itemAdded, setItemAdde
     if (!cartDetails.includes(sneaker.id)) {
       dispatch(addToCart(sneaker))
       
-      // setItemAdded(!itemAdded)
+      // setItemAdded(true)
 
     }
   }

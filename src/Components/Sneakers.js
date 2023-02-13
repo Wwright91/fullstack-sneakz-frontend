@@ -1,53 +1,142 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { Container} from "react-bootstrap";
+import { Button, Container, Dropdown, DropdownButton } from "react-bootstrap";
 import { Sneaker } from "./Sneaker";
+import { useNavigate, useParams } from "react-router-dom";
+// import Pagination from "./Pagination";
+
+import { Pagination } from "react-bootstrap";
 
 const API = process.env.REACT_APP_API_URL;
+let PageSize = 10;
+
 
 export const Sneakers = () => {
   const [sneakers, setSneakers] = useState([]);
+  const [filteredSneakers, setFilteredSneakers] = useState([]);
+
+  let navigate = useNavigate()
+
+  // const [currentPage, setCurrentPage] = useState(1);
+
+  // const currentTableData = useMemo(() => {
+  //   const firstPageIndex = (currentPage - 1) * PageSize;
+  //   const lastPageIndex = firstPageIndex + PageSize;
+  //   return sneakers.slice(firstPageIndex, lastPageIndex);
+  // }, [currentPage]);
+
+
+
+  let uniqueShoeColor = [...new Map(sneakers.map((s) => [s.color, s])).keys()];
+  // console.log("unique shoe", uniqueShoeColor);
+
+  let uniqueShoeBrand = [...new Map(sneakers.map((s) => [s.brand, s])).keys()];
+  // console.log("unique shoe", uniqueShoeBrand);
 
   useEffect(() => {
     axios
       .get(`${API}/sneakz`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setSneakers(res.data);
+        setFilteredSneakers(res.data);
       })
       .catch((c) => console.warn("catch", c));
-  }, []);
+  }, [setFilteredSneakers]);
+
+  const filteredColor = (e) => {
+    // console.log(e.target.id);
+
+
+    let filteredSneaker = sneakers.filter(
+      ({ color }) => color.toLowerCase() === e.target.id.toLowerCase()
+    );
+    navigate({
+      pathname: '/sneakz',
+      search: `?color=${e.target.id}`,
+    });
+
+    // axios
+    // .get(`${API}/sneakz?color=${e.target.id.toLowerCase()}`)
+    // .then((res) => {
+    //   // console.log(res.data);
+    //   // setSneakers(res.data);
+    //   setFilteredSneakers(res.data);
+    // })
+    // .catch((c) => console.warn("catch", c));
+    // console.log(filteredSneaker);
+
+    setFilteredSneakers(filteredSneaker);
+  };
+
+  const filteredBrand = (e) => {
+    console.log(e.target.id);
+    console.log(window.location.search)
+
+    let filteredSneaker = sneakers.filter(
+      ({ brand }) => brand.toLowerCase() === e.target.id.toLowerCase()
+    );
+    console.log(filteredSneaker);
+    navigate({
+      pathname: '/sneakz',
+      search: `?brand=${e.target.id}`,
+    });
+
+    setFilteredSneakers(filteredSneaker);
+  };
 
   return (
     <div>
-          <h1 className="text-center">Check Out Our Collection</h1>
-          <br/>
+      <h1 className="text-center">Check Out Our Collection</h1>
+      <br />
+      {/* <h3>Results For {color} Sneakers</h3> */}
+      <div className="dropdown-buttons">
+        <DropdownButton variant="secondary" title="Choose A Color">
+          <Dropdown.Item>
+            {uniqueShoeColor.map((color) => (
+              <li key={color} onClick={filteredColor} id={color}>
+                {color.toUpperCase()}
+              </li>
+            ))}
+          </Dropdown.Item>
+        </DropdownButton>
+        <DropdownButton variant="secondary" title="Choose A Brand">
+          <Dropdown.Item>
+            {uniqueShoeBrand.map((brand) => (
+              <li key={brand} onClick={filteredBrand} id={brand}>
+                {brand.toUpperCase()}
+              </li>
+            ))}
+          </Dropdown.Item>
+        </DropdownButton>
+      </div>
       <section>
-        {/* <Table striped>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Brand</th>
-              <th>Price</th>
-              <th>Color</th>
-              <th>Used</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sneakers.map((sneaker) => {
-              return <Sneaker key={sneaker.id} sneaker={sneaker} />;
-            })}
-          </tbody>
-        </Table> */}
-              
-              <Container className="sneakers-index">
-                  {/* <Card> */}
-                  {sneakers.map((sneaker) => {
-              return <Sneaker key={sneaker.id} sneaker={sneaker} />;
-            })}
-                  {/* </Card> */}
-              </Container>
+        <Container className="sneakers-index">
+          {filteredSneakers.map((sneaker) => {
+            return <Sneaker key={sneaker.id} sneaker={sneaker} />;
+          })}
+        </Container>
       </section>
+
+      <Pagination>
+        <Pagination.Prev />
+        <Pagination.Ellipsis />
+        <Pagination.Item>{3}</Pagination.Item>
+        <Pagination.Item>{4}</Pagination.Item>
+        <Pagination.Item>{5}</Pagination.Item>
+        <Pagination.Ellipsis />
+        <Pagination.Next />
+      </Pagination>
+
+
+
+      {/* <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={sneakers.length}
+        pageSize={PageSize}
+        onPageChange={page => setCurrentPage(page)}
+      /> */}
     </div>
   );
 };

@@ -1,13 +1,13 @@
 // import React, { useState } from 'react'
 
-import { Button } from "react-bootstrap";
+import { Button, FormControl, FormLabel } from "react-bootstrap";
+import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import {
-  incrementQuantity,
-  decrementQuantity,
   removeFromCart,
-} from '../redux/cart.slice';
+  onClearCart,
+} from "../redux/cart.slice";
 // import { useNavigate } from "react-router-dom";
 
 export const Cart = ({ cartItems, setCartItems }) => {
@@ -60,21 +60,29 @@ export const Cart = ({ cartItems, setCartItems }) => {
   //     <button onClick={returnIndex}>Continue Shopping</button>
   //   </div>
 
-  // Extracting cart state from redux store 
+  // Extracting cart state from redux store
   const cart = useSelector((state) => state.cart);
 
   // Reference to the dispatch function from redux store
   const dispatch = useDispatch();
 
   const getTotalPrice = () => {
-    console.log(cart)
-    return cart.length >= 2 ? cart.reduce(
-      (accumulator, item) => accumulator + item.quantity * item.price,
-      0
-    ) * .80 : cart.reduce(
-      (accumulator, item) => accumulator + item.quantity * item.price,
-      0
-    );
+    console.log(cart);
+    return cart.length >= 2
+      ? cart.reduce(
+          (accumulator, item) => accumulator + item.quantity * item.price,
+          0
+        ) * 0.8
+      : cart.reduce(
+          (accumulator, item) => accumulator + item.quantity * item.price,
+          0
+        );
+  };
+
+  const clearCart = () => {
+    // onClearCart()
+    console.log("cart", cart);
+    cart([]);
   };
 
   return (
@@ -87,25 +95,88 @@ export const Cart = ({ cartItems, setCartItems }) => {
         <h1>Your Cart is Empty!</h1>
       ) : (
         <>
-          {cart.map((item) => (
-            <div className="cart-items">
-              <h4>{item.name}</h4>
-              <h5>{item.brand}</h5>
-              <img src={item.img} alt={item.name} height="200px" width="250px"/>
-              <p>$ {item.price}</p>
-              <div >
-                <button onClick={() => dispatch(removeFromCart(item.id))}>
-                  Remove Item
-                </button>
-                <br />
-                <br/>
+          {" "}
+          <div className="cart-items">
+            {cart.map((item) => (
+              <div key={item.id}>
+                <h4>{item.name}</h4>
+                <h5>{item.brand}</h5>
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  height="200px"
+                  width="250px"
+                />
+                <p>$ {item.price}</p>
+                <div>
+                  <button onClick={() => dispatch(removeFromCart(item.id))}>
+                    Remove Item
+                  </button>
+                  <br />
+                  <br />
+                </div>
               </div>
-              <h2>Grand Total: $ {getTotalPrice().toFixed(2)}</h2>
-            </div>
-          ))}
-            
+            ))}
+                <h2>Grand Total: $ {getTotalPrice().toFixed(2)}</h2>
+            {/* <button onClick={clearCart}>Clear Cart</button>{" "} */}
+          </div>
             <div>
-              Card Info
+              <h2>Payment Info</h2>
+              {/* <Form
+                onSubmit={""}>
+        <FormLabel htmlFor="name">Sneaker Name:</FormLabel>
+        <FormControl
+          id="name"
+          // value={form.name}
+          type="text"
+          onChange={""}
+                  // placeholder="Ex: Air Force"
+                  required
+        />
+        <FormLabel htmlFor="brand">Sneaker Brand:</FormLabel>
+        <FormControl
+          id="brand"
+          // value={form.brand}
+          type="text"
+          onChange={""}
+          // placeholder="Ex: Jordan, Adidas, Puma"
+        />
+        <FormLabel htmlFor="color">Sneaker Color:</FormLabel>
+                <FormControl
+                  
+          id="color"
+          // value={form.color}
+          type="text"
+          onChange={""}
+          // placeholder="Ex: Black, Blue, Red"
+              />
+               <FormLabel htmlFor="price">Sneaker Price:</FormLabel>
+        <FormControl
+          id="price"
+          // value={form.price}
+          type="number"
+          onChange={""}
+          // placeholder="Ex: Value Must Be Above $0"
+        />
+        <FormLabel htmlFor="img">Sneaker Image:</FormLabel>
+        <FormControl
+          id="img"
+          // value={form.img}
+          type="text"
+        //   pattern="https"
+          onChange={""}
+          // placeholder="Ex: http:// or https://"
+        />
+        <FormLabel htmlFor="used">Have These Sneakers Been Worn?:</FormLabel>
+        <FormCheckInput
+          id="used"
+          type="checkbox"
+          onChange={""}
+          // checked={form.used}
+        />
+        <br />
+        <input type="submit" />
+      </Form> */}
             </div>
           {/* <h2>Grand Total: $ {getTotalPrice().toFixed(2)}</h2> */}
         </>
