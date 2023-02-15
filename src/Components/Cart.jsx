@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { useEffect } from "react";
-import { Button, FormControl, FormLabel } from "react-bootstrap";
+import { Button, Form, FormControl, FormLabel } from "react-bootstrap";
 import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
-import { useDispatch, useSelector } from "react-redux";
-import { Form, Link, useNavigate } from "react-router-dom";
-import { removeFromCart, onClearCart } from "../redux/cart.slice";
+// import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+// import { removeFromCart, onClearCart } from "../redux/cart.slice";
 // import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
@@ -81,10 +81,15 @@ export const Cart = ({ cartItems, setCartItems }) => {
 
   // Reference to the dispatch function from redux store
   // const dispatch = useDispatch();
-let cartTotal = cartItems.length >= 2 ? 
-      cartItems.map(({ price }) => price).reduce((a, b) => Number(a) + Number(b), 0) * .80 :
-      cartItems.map(({ price }) => price).reduce((a, b) => Number(a) + Number(b), 0)
-      // : cartItems.reduce((a, b) => Number(a.price) + Number(b.price), 0);
+  let cartTotal =
+    cartItems.length >= 2
+      ? cartItems
+          .map(({ price }) => price)
+          .reduce((a, b) => Number(a) + Number(b), 0) * 0.8
+      : cartItems
+          .map(({ price }) => price)
+          .reduce((a, b) => Number(a) + Number(b), 0);
+  // : cartItems.reduce((a, b) => Number(a.price) + Number(b.price), 0);
 
   // console.log(getTotalPrice())
 
@@ -96,7 +101,7 @@ let cartTotal = cartItems.length >= 2 ?
     axios
       .delete(`${API}/sneakz/cart/${id}`)
       .then(() => {
-        window.location.reload()
+        window.location.reload();
       })
       .catch((e) => console.error(e));
   };
@@ -105,9 +110,14 @@ let cartTotal = cartItems.length >= 2 ?
     axios
       .delete(`${API}/sneakz/cart`)
       .then(() => {
-        window.location.reload()
+        window.location.reload();
       })
       .catch((e) => console.error(e));
+  };
+
+  const submitForm = (e) => {
+    e.preventDefault()
+    console.log("form submitted!");
   };
 
   return (
@@ -142,71 +152,49 @@ let cartTotal = cartItems.length >= 2 ?
                 </div>
               </div>
             ))}
-              {cartItems.length &&  <h2>Grand Total: $ {cartTotal.toFixed(2)}</h2>}
+            {cartItems.length && <h2>Grand Total: $ {cartTotal.toFixed(2)}</h2>}
             {/* <button onClick={clearCart}>Clear Cart</button>{" "} */}
-            <button onClick={emptyCart}>
-              Clear Cart
-            </button>{" "}
+            <button onClick={emptyCart}>Clear Cart</button>{" "}
           </div>
           <div>
             <h2>Payment Info</h2>
-            {/* <Form
-                onSubmit={""}>
-        <FormLabel htmlFor="name">Sneaker Name:</FormLabel>
-        <FormControl
-          id="name"
-          // value={form.name}
-          type="text"
-          onChange={""}
-                  // placeholder="Ex: Air Force"
-                  required
-        />
-        <FormLabel htmlFor="brand">Sneaker Brand:</FormLabel>
-        <FormControl
-          id="brand"
-          // value={form.brand}
-          type="text"
-          onChange={""}
-          // placeholder="Ex: Jordan, Adidas, Puma"
-        />
-        <FormLabel htmlFor="color">Sneaker Color:</FormLabel>
-                <FormControl
-                  
-          id="color"
-          // value={form.color}
-          type="text"
-          onChange={""}
-          // placeholder="Ex: Black, Blue, Red"
-              />
-               <FormLabel htmlFor="price">Sneaker Price:</FormLabel>
-        <FormControl
-          id="price"
-          // value={form.price}
-          type="number"
-          onChange={""}
-          // placeholder="Ex: Value Must Be Above $0"
-        />
-        <FormLabel htmlFor="img">Sneaker Image:</FormLabel>
+            <Form onSubmit={submitForm}>
+              <FormLabel htmlFor="firstname">First Name:</FormLabel>
+              <FormControl id="firstname" type="text" />
+              <FormLabel htmlFor="lastname"> Last Name:</FormLabel>
+              <FormControl id="brand" type="text" />
+              <FormLabel htmlFor="color">Email:</FormLabel>
+                <FormControl id="color" type="text" />
+                <FormLabel htmlFor="price">Card Number:</FormLabel>
+                <FormControl id="price" type="text" />
+                <FormLabel htmlFor="price">EXP Date:</FormLabel>
+                <FormControl id="price" type="text" />
+                <FormLabel htmlFor="price">CVV:</FormLabel>
+              <FormControl id="price" type="text" />
+              <br />
+              <h3>Shipping Address</h3>
+              <FormLabel htmlFor="price">Street Name:</FormLabel>
+                <FormControl id="price" type="text" />
+                <FormLabel htmlFor="price">City:</FormLabel>
+                <FormControl id="price" type="text" />
+                <FormLabel htmlFor="price">State:</FormLabel>
+                <FormControl id="price" type="text" />
+                <FormLabel htmlFor="price">Zip:</FormLabel>
+              <FormControl id="price" type="text" />
+              {/* <FormLabel htmlFor="img">Sneaker Image:</FormLabel>
         <FormControl
           id="img"
-          // value={form.img}
           type="text"
-        //   pattern="https"
-          onChange={""}
-          // placeholder="Ex: http:// or https://"
-        />
-        <FormLabel htmlFor="used">Have These Sneakers Been Worn?:</FormLabel>
+        /> */}
+              {/* <FormLabel htmlFor="used">Have These Sneakers Been Worn?:</FormLabel>
         <FormCheckInput
           id="used"
           type="checkbox"
-          onChange={""}
-          // checked={form.used}
-        />
-        <br />
-        <input type="submit" />
-      </Form> */}
+        /> */}
+              <br />
+              <input type="submit" />
+            </Form>
           </div>
-          {/* <h2>Grand Total: $ {getTotalPrice().toFixed(2)}</h2> */}
         </>
       )}
     </div>
