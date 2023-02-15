@@ -1,20 +1,23 @@
 // import React, { useState } from 'react'
 
+import { useState } from "react";
+import { useEffect } from "react";
 import { Button, FormControl, FormLabel } from "react-bootstrap";
 import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Link } from "react-router-dom";
-import {
-  removeFromCart,
-  onClearCart,
-} from "../redux/cart.slice";
+import { Form, Link, useNavigate } from "react-router-dom";
+import { removeFromCart, onClearCart } from "../redux/cart.slice";
 // import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
+
+const API = process.env.REACT_APP_API_URL;
 
 export const Cart = ({ cartItems, setCartItems }) => {
   // const [cartItems, setCartItems] = useState([])
   // console.log("cart items", cartItems[0].price)
 
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
   // let total;
 
@@ -60,29 +63,51 @@ export const Cart = ({ cartItems, setCartItems }) => {
   //     <button onClick={returnIndex}>Continue Shopping</button>
   //   </div>
 
+  // const [x, setX] = useState([])
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API}/sneakz/cart`)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setX(res.data);
+  //       // setFilteredSneakers(res.data);
+  //     })
+  //     .catch((c) => console.warn("catch", c));
+  // }, []);
+
   // Extracting cart state from redux store
-  const cart = useSelector((state) => state.cart);
+  // const cart = useSelector((state) => state.cart);
 
   // Reference to the dispatch function from redux store
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+let cartTotal = cartItems.length >= 2 ? 
+      cartItems.map(({ price }) => price).reduce((a, b) => Number(a) + Number(b), 0) * .80 :
+      cartItems.map(({ price }) => price).reduce((a, b) => Number(a) + Number(b), 0)
+      // : cartItems.reduce((a, b) => Number(a.price) + Number(b.price), 0);
 
-  const getTotalPrice = () => {
-    console.log(cart);
-    return cart.length >= 2
-      ? cart.reduce(
-          (accumulator, item) => accumulator + item.quantity * item.price,
-          0
-        ) * 0.8
-      : cart.reduce(
-          (accumulator, item) => accumulator + item.quantity * item.price,
-          0
-        );
+  // console.log(getTotalPrice())
+
+  // useEffect(() => {
+  //   setCartItems(cart)
+  // }, [cart])
+
+  const deleteItem = (id) => {
+    axios
+      .delete(`${API}/sneakz/cart/${id}`)
+      .then(() => {
+        window.location.reload()
+      })
+      .catch((e) => console.error(e));
   };
 
-  const clearCart = () => {
-    // onClearCart()
-    console.log("cart", cart);
-    cart([]);
+  const emptyCart = () => {
+    axios
+      .delete(`${API}/sneakz/cart`)
+      .then(() => {
+        window.location.reload()
+      })
+      .catch((e) => console.error(e));
   };
 
   return (
@@ -91,13 +116,13 @@ export const Cart = ({ cartItems, setCartItems }) => {
         <Button variant="dark">Continue Shopping</Button>
       </Link>
       <h2>Checkout</h2>
-      {cart.length === 0 ? (
+      {cartItems.length === 0 ? (
         <h1>Your Cart is Empty!</h1>
       ) : (
         <>
           {" "}
           <div className="cart-items">
-            {cart.map((item) => (
+            {cartItems.map((item) => (
               <div key={item.id}>
                 <h4>{item.name}</h4>
                 <h5>{item.brand}</h5>
@@ -109,7 +134,7 @@ export const Cart = ({ cartItems, setCartItems }) => {
                 />
                 <p>$ {item.price}</p>
                 <div>
-                  <button onClick={() => dispatch(removeFromCart(item.id))}>
+                  <button onClick={() => deleteItem(item.id)}>
                     Remove Item
                   </button>
                   <br />
@@ -117,12 +142,15 @@ export const Cart = ({ cartItems, setCartItems }) => {
                 </div>
               </div>
             ))}
-                <h2>Grand Total: $ {getTotalPrice().toFixed(2)}</h2>
+              {cartItems.length &&  <h2>Grand Total: $ {cartTotal.toFixed(2)}</h2>}
             {/* <button onClick={clearCart}>Clear Cart</button>{" "} */}
+            <button onClick={emptyCart}>
+              Clear Cart
+            </button>{" "}
           </div>
-            <div>
-              <h2>Payment Info</h2>
-              {/* <Form
+          <div>
+            <h2>Payment Info</h2>
+            {/* <Form
                 onSubmit={""}>
         <FormLabel htmlFor="name">Sneaker Name:</FormLabel>
         <FormControl
@@ -177,7 +205,7 @@ export const Cart = ({ cartItems, setCartItems }) => {
         <br />
         <input type="submit" />
       </Form> */}
-            </div>
+          </div>
           {/* <h2>Grand Total: $ {getTotalPrice().toFixed(2)}</h2> */}
         </>
       )}

@@ -5,8 +5,6 @@ import { Sneaker } from "./Sneaker";
 import { useNavigate, useParams } from "react-router-dom";
 // import Pagination from "./Pagination";
 
-import { Pagination } from "react-bootstrap";
-
 const API = process.env.REACT_APP_API_URL;
 let PageSize = 10;
 
@@ -16,14 +14,6 @@ export const Sneakers = () => {
   const [filteredSneakers, setFilteredSneakers] = useState([]);
 
   let navigate = useNavigate()
-
-  // const [currentPage, setCurrentPage] = useState(1);
-
-  // const currentTableData = useMemo(() => {
-  //   const firstPageIndex = (currentPage - 1) * PageSize;
-  //   const lastPageIndex = firstPageIndex + PageSize;
-  //   return sneakers.slice(firstPageIndex, lastPageIndex);
-  // }, [currentPage]);
 
 
 
@@ -42,7 +32,7 @@ export const Sneakers = () => {
         setFilteredSneakers(res.data);
       })
       .catch((c) => console.warn("catch", c));
-  }, [setFilteredSneakers]);
+  }, []);
 
   const filteredColor = (e) => {
     // console.log(e.target.id);
@@ -117,26 +107,6 @@ export const Sneakers = () => {
           })}
         </Container>
       </section>
-
-      <Pagination>
-        <Pagination.Prev />
-        <Pagination.Ellipsis />
-        <Pagination.Item>{3}</Pagination.Item>
-        <Pagination.Item>{4}</Pagination.Item>
-        <Pagination.Item>{5}</Pagination.Item>
-        <Pagination.Ellipsis />
-        <Pagination.Next />
-      </Pagination>
-
-
-
-      {/* <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={sneakers.length}
-        pageSize={PageSize}
-        onPageChange={page => setCurrentPage(page)}
-      /> */}
     </div>
   );
 };

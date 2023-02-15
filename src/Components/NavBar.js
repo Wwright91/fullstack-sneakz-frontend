@@ -9,9 +9,9 @@ import { Badge } from "react-bootstrap";
 import hero from "../assets/sneakz-logo.jpeg";
 import { useSelector } from "react-redux";
 
-export const NavBar = () => {
+export const NavBar = ({cartItems}) => {
   let navigate = useNavigate();
-  const cart = useSelector((state) => state.cart);
+  // const cart = useSelector((state) => state.cart);
 
   const returnHome = () => {
     navigate("/");
@@ -56,7 +56,7 @@ export const NavBar = () => {
               </Button>
               <Button variant="outline-danger" className="cart-button">
           <Link to="/sneakz/cart">🛒</Link>
-          <Badge>{cart.length}</Badge>
+          <Badge>{cartItems.length}</Badge>
         </Button>
       </Navbar>
     </div>

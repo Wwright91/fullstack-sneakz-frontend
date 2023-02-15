@@ -9,7 +9,8 @@ import { Review } from "./Review";
 // import { Cart } from "./Cart";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../redux/cart.slice";
+// import { set } from "immer/dist/internal";
+// import { addToCart } from "../redux/cart.slice";
 // import store from "../redux/store";
 
 const API = process.env.REACT_APP_API_URL;
@@ -17,7 +18,6 @@ const API = process.env.REACT_APP_API_URL;
 export const SneakerDetails = ({ cartItems, setCartItems, itemAdded, setItemAdded }) => {
   const [sneaker, setSneaker] = useState([]);
   const [show, setShow] = useState(false);
-  // const [cartItems, setCartItems] = useState([])
   // const [itemAdded, setItemAdded] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -27,6 +27,9 @@ export const SneakerDetails = ({ cartItems, setCartItems, itemAdded, setItemAdde
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+
+  const [loading, setLoading] = useState(false)
+const [success, unsuccessful] = useState(false)
 
 
   useEffect(() => {
@@ -47,109 +50,60 @@ export const SneakerDetails = ({ cartItems, setCartItems, itemAdded, setItemAdde
     window.history.back();
   };
 
-  // const addToCart = (sneaker) => {
+  const addToCart = (e, sneaker) => {
+    console.log(e.target.id)
+    console.log(cartItems)
 
-    // cartCheck(sneaker)
-    // e.preventDefault()
-    // console.log("working");
+    let alreadyInCart = cartItems.map(({ id }) => Number(id))
+    console.log(alreadyInCart)
+    console.log(sneaker.id)
 
-    // if (!cartItems.length) {
-    //   setCartItems([...cartItems, sneaker])
-    // }
-
-    // cartItems.map((s) => s.id === sneaker.id)
-
-    // let addedAlready =
+    if (!alreadyInCart.includes(Number(e.target.id))) {
+      console.log("not added")
       
-      // cartItems.map((c) => c.id)
+      // setCartItems([...cartItems, sneaker])
+      // setItemAdded(!itemAdded)
 
-    // console.log("added", addedAlready)
+      //*********** SET LOADING STATE FOR BUTTON */
+      setLoading(true)
+      setTimeout(() => {
+        setCartItems([...cartItems, sneaker])
+        // setLoading(true)
+        axios
+          .post(`${API}/sneakz/cart`, { sneaker_id: id })
+          .then(() => {
+            //  console.log("added to backend")
+            // navigate(`/sneakz`);
+            window.location.reload()
+            // setLoading(true)
+            // unsuccessful(!success)
+          })
+          .catch((c) => {
+            navigate("/404");
+            console.error("catch", c)
+          });
+      }, 3000
 
-    // if (cartItems.map((c) => c.id !== sneaker.id)) {
-    //   setItemAdded(!itemAdded)
-    //   setCartItems([...cartItems, sneaker]);
-    // }
-
-    // if (!itemAdded) {
-    //   // console.log("yes")
-    //   setItemAdded(itemAdded)
-    //   // setCartItems([...cartItems, sneaker]);
-    // }
-
-    // if (cartItems.map((cart) => cart.id !== sneaker.id)) {
-    //   setCartItems([...cartItems, sneaker]);
-    // }
-
-    // if (!cartItems.map(({id}) => id === sneaker.id)) {
-    //   setItemAdded(!itemAdded)
-    // }
-
-    // console.log("cart-details", cartItems)
-
-  //   console.log(cartItems)
-    
-  //   if (!itemAdded) {
-  //     setCartItems([...cartItems, sneaker]);
-  //     setItemAdded(!itemAdded)
-  //   }
-
-
-  // };
-
-  // const cartCheck = (sneaker) => {
-  //   // if (cartItems.map((c) => c === sneaker)) {
-  //   //   setItemAdded(itemAdded)
-
-  //   if (cartItems.includes(sneaker)) {
-      
-  //     console.log("in cart")
-  //   } else {
-  //     setCartItems([...cartItems, sneaker]);
-  //     setItemAdded(!itemAdded)
-  //     console.log("not in cart")
-  //   }
-  // }
-
-    // console.log(sneaker)
-
-      // if (!itemAdded) {
-      //   setCartItems([...cartItems, sneaker]);
-      //   setItemAdded(!itemAdded)
-      // }
-
-    // }
-  
-  const updateCart = (sneaker) => {
-    console.log(cart)
-
-    let cartDetails = cart.length ? cart.map((c) => c.id) : []
-      
-    if (!cartDetails.includes(sneaker.id)) {
-      dispatch(addToCart(sneaker))
-      
-      // setItemAdded(true)
-
+      )
+      // document.getElementById(e.target.id).disabled = true;
+      // unsuccessful(!success)
+    }
+    else {
+      // unsuccessful(!success)
+      console.log("in cart already")
     }
   }
-
-
-
-
-// .map((c) => c.id)
-  console.log("cart-details", cartItems);
-  console.log("sneaker", sneaker.id);
 
   return (
     <div className="card-body text-center">
       <article className="sneaker-details">
         {/* <AddItem itemAdded={itemAdded} addToCart={addToCart} /> */}
-        <Button
-          onClick={() =>  updateCart(sneaker)}
+        <Button id={id}
+          onClick={(e) =>  addToCart(e, sneaker)}
           className="add-item-details"
-          variant={!itemAdded ? "danger" : "warning"}
+          variant={!loading ? "danger" : "warning"}
         >
-          {!itemAdded ? "Add To Cart" : "Remove From Cart"}
-          {/* <Icon name = "arrow right" /> */}
+          {!success && !loading ? "Add To Cart" : "Adding To Cart..." }
         </Button>
         <h3>{name}</h3>
         <h5>{brand}</h5>

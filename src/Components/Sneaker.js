@@ -3,6 +3,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const Sneaker = ({ sneaker }) => {
+  // console.log(sneaker)
   const { name, brand, price, color, used, img, id } = sneaker;
   return (
     <Card className="sneakers-card">
