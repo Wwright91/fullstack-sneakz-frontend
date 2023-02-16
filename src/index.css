@@ -20,6 +20,14 @@ nav img {
   cursor: pointer;
 }
 
+.index-img:hover {
+    animation: rotate 10s infinite linear;
+}
+
+@keyframes rotate{
+  100%{ transform:rotate(1turn) }
+}
+
 .dropdown-buttons {
   display: flex;
   position: absolute;
@@ -107,8 +115,8 @@ article {
 
 .add-item-details {
   position: absolute;
-  right: 350px;
-  bottom: 200px;
+  right: 510px;
+  bottom: 300px;
   /* color: black; */
   /* padding: 4px; */
 }
@@ -145,6 +153,25 @@ article {
     rgba(208, 1, 1, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px,
     rgba(240, 46, 170, 0.05) 0px 25px;
   border-radius: 30px;
+}
+
+.card-body {
+  display: grid;
+  grid-template-columns:6fr 1fr;
+}
+
+.reviews-section {
+  margin-top: 100px;
+  margin-right: 40px;
+  /* border: 1px solid; */
+}
+
+ul {
+  list-style: "- ";
+}
+
+.comment-section {
+ border: 1px solid;
 }
 
 .show-buttons {

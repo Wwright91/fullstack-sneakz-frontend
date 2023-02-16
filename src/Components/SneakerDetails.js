@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 // import { addToCart } from "../redux/cart.slice";
 // import store from "../redux/store";
 
+import { Reviews } from "./Reviews";
+
 const API = process.env.REACT_APP_API_URL;
 
 export const SneakerDetails = ({ cartItems, setCartItems, itemAdded, setItemAdded }) => {
@@ -36,7 +38,7 @@ const [success, unsuccessful] = useState(false)
     axios
       .get(`${API}/sneakz/${id}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setSneaker(res.data);
       })
       .catch((c) => {
@@ -132,8 +134,9 @@ const [success, unsuccessful] = useState(false)
             />
           </div>
         </div>
-        <Review />
+        {/* <Reviews /> */}
       </article>
+      <Reviews/>
     </div>
   );
 };

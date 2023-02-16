@@ -45,7 +45,7 @@ function App() {
 
 
   return (
-    // <Provider store={store}>
+    <Provider store={store}>
     <div className="App">
       <Router>
         <NavBar cartItems={cartItems}/>
@@ -65,7 +65,7 @@ function App() {
         <Footer/>
       </Router>
       </div>
-      // </Provider>
+      </Provider>
   );
 }
 

@@ -12,7 +12,7 @@ export const Sneaker = ({ sneaker }) => {
       </h4>
       <p>{brand}</p>
       <Link to={`/sneakz/${id}`}>
-        <img src={img} alt={name} height="200px" width="300px" />
+        <img src={img} alt={name} height="200px" width="300px" className="index-img"/>
       </Link>
       <p>${price}</p>
       <p style={color.toLowerCase() === "white" ? { backgroundColor: "black", color: "white" } : { color: `${color}` }}>
