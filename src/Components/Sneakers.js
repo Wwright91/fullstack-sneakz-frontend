@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Container, Dropdown, DropdownButton } from "react-bootstrap";
+import { Container, Dropdown, DropdownButton } from "react-bootstrap";
 import { Sneaker } from "./Sneaker";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 // import Pagination from "./Pagination";
 
 const API = process.env.REACT_APP_API_URL;
-let PageSize = 10;
+// let PageSize = 10;
 
 
 export const Sneakers = () => {

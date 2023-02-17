@@ -15,7 +15,7 @@ import { NavBar } from "./Components/NavBar";
 import { Footer } from "./Components/Footer";
 import { useEffect, useState } from "react";
 
-import { Provider, useSelector } from 'react-redux';   
+import { Provider} from 'react-redux';   
 import store from './redux/store'; 
 
 const API = process.env.REACT_APP_API_URL;

@@ -1,11 +1,9 @@
 // import React, { useState } from 'react'
 
-import { useState } from "react";
-import { useEffect } from "react";
 import { Button, Form, FormControl, FormLabel } from "react-bootstrap";
-import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
+// import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
 // import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { removeFromCart, onClearCart } from "../redux/cart.slice";
 // import { useNavigate } from "react-router-dom";
 
@@ -17,7 +15,7 @@ export const Cart = ({ cartItems, setCartItems }) => {
   // const [cartItems, setCartItems] = useState([])
   // console.log("cart items", cartItems[0].price)
 
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   // let total;
 

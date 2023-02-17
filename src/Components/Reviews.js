@@ -19,7 +19,7 @@ export const Reviews = () => {
       console.log(response.data);
         setReviews(response.data)
     });
-  }, [id, API]);
+  }, [id]);
 
   const handleAdd = (newReview) => {
     axios
@@ -95,5 +95,3 @@ export const Reviews = () => {
     </section>
   );
 }
-
-  {/* <h4>{data.review }</h4> */}
