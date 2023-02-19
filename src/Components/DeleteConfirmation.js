@@ -16,7 +16,6 @@ export default function ConfirmDelete({
       .delete(`${API}/sneakz/${id}`)
       .then(() => {
         navigate(`/sneakz`);
-        // window.location.reload()
       })
       .catch((e) => console.error(e));
   };

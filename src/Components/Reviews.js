@@ -8,16 +8,14 @@ import { ReviewForm } from "./ReviewForm";
 const API = process.env.REACT_APP_API_URL;
 
 export const Reviews = () => {
-    // const [data, setData] = useState([])
-    const [reviews, setReviews] = useState([]);
-    const [showForm, setShowForm] = useState(false)
-    const [showReviews, setShowReviews] = useState(false)
+  const [reviews, setReviews] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [showReviews, setShowReviews] = useState(false);
   let { id } = useParams();
 
   useEffect(() => {
     axios.get(`${API}/sneakz/${id}/reviews`).then((response) => {
-      console.log(response.data);
-        setReviews(response.data)
+      setReviews(response.data);
     });
   }, [id]);
 
@@ -32,7 +30,7 @@ export const Reviews = () => {
       )
       .catch((c) => console.warn("catch", c));
   };
-    
+
   const handleDelete = (id) => {
     axios
       .delete(`${API}/sneakz/${id}/reviews/${id}`)
@@ -49,7 +47,7 @@ export const Reviews = () => {
       )
       .catch((c) => console.warn("catch", c));
   };
-    
+
   const handleEdit = (updatedReview) => {
     axios
       .put(`${API}/sneakz/${id}/reviews/${updatedReview.id}`, updatedReview)
@@ -66,32 +64,33 @@ export const Reviews = () => {
 
   return (
     <section className="reviews-section">
-          <Button variant="dark" onClick={() => setShowReviews(!showReviews)}>Reviews <Badge bg={reviews.length ? "secondary" : "danger"}>{reviews.length}</Badge></Button>
-
+      <Button variant="dark" onClick={() => setShowReviews(!showReviews)}>
+        Reviews{" "}
+        <Badge bg={reviews.length ? "secondary" : "danger"}>
+          {reviews.length}
+        </Badge>
+      </Button>
+      <br />
+      <br />
+      {showReviews && (
+        <>
+          {reviews.map((review) => (
+            <Review
+              key={review.id}
+              review={review}
+              handleDelete={handleDelete}
+              handleSubmit={handleEdit}
+            />
+          ))}
           <br />
-          <br />
-          
-          {showReviews && <>
-              {
-              reviews.map(( review ) => (
-                   < Review key={review.id} review={review} handleDelete={handleDelete} handleSubmit={handleEdit} /> 
-              ))
-          }
-          <br />
-         <h3><Button onClick={() => setShowForm(!showForm)} variant="danger">{!showForm ? "Add A New Review" : "Hide Form"}</Button></h3>
-          </>
-          
-          }
-          
-      {showForm && <ReviewForm handleSubmit={handleAdd}>
-      </ReviewForm>}
-           {/* <h2>Reviews</h2>
-      <ReviewForm handleSubmit={handleAdd}>
-        <h3>Add a New Review</h3>
-      </ReviewForm>
-      {reviews.map((review) => (
-          <Review key={review.id} review={review} handleDelete={handleDelete } handleSubmit={handleEdit} />
-      ))} */}
+          <h3>
+            <Button onClick={() => setShowForm(!showForm)} variant="dark">
+              {!showForm ? "Add A New Review" : "Hide Form"}
+            </Button>
+          </h3>
+        </>
+      )}
+      {showForm && <ReviewForm handleSubmit={handleAdd}></ReviewForm>}
     </section>
   );
-}
+};

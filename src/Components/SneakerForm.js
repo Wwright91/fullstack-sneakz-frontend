@@ -14,6 +14,7 @@ export const SneakerForm = () => {
     name: "",
     brand: "",
     color: "",
+    size: 0,
     price: 0,
     img: "",
     used: false,
@@ -66,7 +67,7 @@ export const SneakerForm = () => {
         }
         alt={form.name ? form.name : "none"}
         height="100px"
-        width="150px"
+        width="120px"
         className="form-img"
       />
       <br />
@@ -78,8 +79,8 @@ export const SneakerForm = () => {
           value={form.name}
           type="text"
           onChange={handleTextChange}
-                  placeholder="Ex: Air Force"
-                  required
+          placeholder="Ex: Air Force"
+          required
         />
         <FormLabel htmlFor="brand">Sneaker Brand:</FormLabel>
         <FormControl
@@ -89,15 +90,23 @@ export const SneakerForm = () => {
           onChange={handleTextChange}
           placeholder="Ex: Jordan, Adidas, Puma"
         />
-        <FormLabel htmlFor="color">Sneaker Color:</FormLabel>
+        <FormLabel htmlFor="color">Sneaker Primary Color:</FormLabel>
         <FormControl
           id="color"
           value={form.color}
           type="text"
           onChange={handleTextChange}
           placeholder="Ex: Black, Blue, Red"
-              />
-               <FormLabel htmlFor="price">Sneaker Price:</FormLabel>
+        />
+        <FormLabel htmlFor="size">Sneaker Size:</FormLabel>
+        <FormControl
+          id="size"
+          value={form.size}
+          type="number"
+          onChange={handleTextChange}
+          placeholder="Ex: 7"
+        />
+        <FormLabel htmlFor="price">Sneaker Price:</FormLabel>
         <FormControl
           id="price"
           value={form.price}
@@ -110,7 +119,6 @@ export const SneakerForm = () => {
           id="img"
           value={form.img}
           type="text"
-        //   pattern="https"
           onChange={handleTextChange}
           placeholder="Ex: http:// or https://"
         />
@@ -122,7 +130,7 @@ export const SneakerForm = () => {
           checked={form.used}
         />
         <br />
-        <input type="submit" />
+        <input type="submit" className="btn btn-light" />
       </Form>
     </div>
   );

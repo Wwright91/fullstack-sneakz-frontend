@@ -56,8 +56,8 @@ export const ReviewForm = (props) => {
           onChange={handleTextChange}
         />
         <br />
-        <input type="submit" />
+        <input type="submit" className="btn btn-light" />
       </form>
     </div>
   );
-}
+};

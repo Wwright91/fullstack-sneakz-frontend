@@ -4,15 +4,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import ConfirmDelete from "./DeleteConfirmation";
-// import { AddItem } from "./AddItem";
-// import { Review } from "./Review";
-// import { Cart } from "./Cart";
 import { Button } from "react-bootstrap";
-// import { useDispatch, useSelector } from "react-redux";
-// import { set } from "immer/dist/internal";
-// import { addToCart } from "../redux/cart.slice";
-// import store from "../redux/store";
-
 import { Reviews } from "./Reviews";
 
 const API = process.env.REACT_APP_API_URL;
@@ -25,25 +17,22 @@ export const SneakerDetails = ({
 }) => {
   const [sneaker, setSneaker] = useState([]);
   const [show, setShow] = useState(false);
-  // const [itemAdded, setItemAdded] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const { name, brand, price, used, img, size, color } = sneaker;
-  // price, size, name, brand, color, used, img
+
   let { id } = useParams();
   let navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const cart = useSelector((state) => state.cart);
 
   const [loading, setLoading] = useState(false);
-  // const [success, unsuccessful] = useState(false);
+
+  let alreadyInCart = cartItems.map(({ id }) => Number(id));
 
   useEffect(() => {
     axios
       .get(`${API}/sneakz/${id}`)
       .then((res) => {
-        // console.log(res.data);
         setSneaker(res.data);
       })
       .catch((c) => {
@@ -58,65 +47,60 @@ export const SneakerDetails = ({
   };
 
   const addToCart = (e, sneaker) => {
-    console.log(e.target.id);
-    console.log(cartItems);
-
-    let alreadyInCart = cartItems.map(({ id }) => Number(id));
-    console.log(alreadyInCart);
-    console.log(sneaker.id);
+    document.getElementById(`${sneaker.id}`).disabled = cartItems[sneaker.id];
 
     if (!alreadyInCart.includes(Number(e.target.id))) {
-      console.log("not added");
-
-      // setCartItems([...cartItems, sneaker])
-      // setItemAdded(!itemAdded)
-
-      //*********** SET LOADING STATE FOR BUTTON */
-      setLoading(true);
+      setLoading(!loading);
       setTimeout(() => {
-        setCartItems([...cartItems, sneaker]);
-        // setLoading(true)
         axios
           .post(`${API}/sneakz/cart`, { sneaker_id: id })
           .then(() => {
-            //  console.log("added to backend")
-            // navigate(`/sneakz`);
-            window.location.reload();
-            // setLoading(true)
-            // unsuccessful(!success)
+            setItemAdded((itemAdded) => ({
+              itemAdded,
+              [sneaker.id]: sneaker.id,
+            }));
+            setCartItems([...cartItems, sneaker]);
           })
           .catch((c) => {
             navigate("/404");
             console.error("catch", c);
           });
-      }, 2000);
-      // document.getElementById(e.target.id).disabled = true;
-      // unsuccessful(!success)
-    } else {
-      // unsuccessful(!success)
-      console.log("in cart already");
+      }, 1500);
     }
   };
 
   return (
     <div className="card-body text-center">
       <article className="sneaker-details">
-        {/* <AddItem itemAdded={itemAdded} addToCart={addToCart} /> */}
+        <div
+          className="sneaker-color"
+          style={{ backgroundColor: `${color}` }}
+        ></div>
         <Button
           id={id}
           onClick={(e) => addToCart(e, sneaker)}
           className="add-item-details"
-          variant={!loading ? "danger" : "warning"}
+          variant={!itemAdded[sneaker.id] ? "danger" : "success"}
+          disabled={itemAdded[sneaker.id]}
         >
-          {!loading ? "Add To Cart" : "Adding To Cart..."}
+          {!itemAdded[sneaker.id] ? "Add To Cart" : "In Cart"}
         </Button>
+        <br />
+        <br />
         <h3>{name}</h3>
         <h5>{brand}</h5>
-        <img src={img} alt={name} width="300px" height="200px" />
-        <h3>Price: ${price}</h3>
-        <h3>Color: {color}</h3>
-        <h3>Size: {size}</h3>
-        <h3>Condition: {used ? "Used" : "Brand New"}</h3>
+        <img
+          className="details-img"
+          src={img}
+          alt={name}
+          width="300px"
+          height="200px"
+        />
+        <br />
+        <br />
+        <h3>${price}</h3>
+        <div className="sneaker-condition"> {used ? "Used" : "New"}</div>
+        <div className="sneaker-size">{size}</div>
         <div className="d-flex show-buttons">
           <div>
             <button className="btn btn-dark" onClick={goBack}>
@@ -138,7 +122,6 @@ export const SneakerDetails = ({
             />
           </div>
         </div>
-        {/* <Reviews /> */}
       </article>
       <Reviews />
     </div>

@@ -1,3 +1,8 @@
+* {
+  font-family: "Rubik", sans-serif;
+  box-sizing: border-box;
+}
+
 main {
   padding: 20px 10px 200px 10px;
 }
@@ -20,12 +25,20 @@ nav img {
   cursor: pointer;
 }
 
-.index-img:hover {
-    animation: rotate 10s infinite linear;
+.index-img,
+.home-img,
+.details-img {
+  object-fit: cover;
 }
 
-@keyframes rotate{
-  100%{ transform:rotate(1turn) }
+.index-img:hover {
+  animation: rotate 10s infinite linear;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
 }
 
 .dropdown-buttons {
@@ -56,10 +69,17 @@ nav img {
 .cart-details {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  margin: 0 100px;
 }
 
 .cart-items {
   grid-column: 1/3;
+  padding-left: 100px;
+  padding-top: 60px;
+}
+
+.payment-info {
+  margin: 40px;
 }
 
 a {
@@ -68,10 +88,6 @@ a {
 }
 
 a:hover {
-  color: white;
-}
-
-.fourofour-link:hover {
   color: red;
 }
 
@@ -85,8 +101,29 @@ a:hover {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   text-align: center;
-  /* justify-content: center; */
-  /* align-items: center; */
+}
+
+.back-to-top {
+  position: fixed;
+  right: 30px;
+  bottom: 100px;
+  border-radius: 100%;
+  background: #c30a0a;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  opacity: 100%;
+  transition: opacity 0.5s;
+}
+
+.hidden {
+  opacity: 0%;
+}
+
+.back-to-top-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #ffffff;
 }
 
 .sneakers-card {
@@ -103,22 +140,48 @@ a:hover {
 }
 
 .sneaker-details {
-  /* padding: 0px 20px 0px 0px; */
   padding: 10px;
   box-shadow: rgb(164, 4, 4) 6px 6px 6px 30px;
 }
 
+.details-img:hover {
+  height: 300px;
+  width: 350px;
+}
+
+.sneaker-color {
+  height: 20px;
+  width: 20px;
+  border: 1px solid;
+  border-radius: 300px;
+}
+
+.sneaker-size {
+  font-size: xx-large;
+  position: absolute;
+  right: 570px;
+  top: 680px;
+  border: 2px solid;
+  border-radius: 40px;
+  padding: 10px;
+  background-color: #dc6b6b;
+}
+
+.sneaker-condition {
+  font-size: xx-large;
+  position: absolute;
+  color: rgb(145, 28, 28);
+}
+
 article {
   margin: 100px 300px 100px 200px;
-  /* padding: 100px; */
 }
 
 .add-item-details {
-  position: absolute;
+  /* position: absolute; */
+  /* position: ; */
   right: 510px;
   bottom: 300px;
-  /* color: black; */
-  /* padding: 4px; */
 }
 
 .home-page {
@@ -157,14 +220,12 @@ article {
 
 .card-body {
   display: grid;
-  grid-template-columns:6fr 1fr;
-  
+  grid-template-columns: 6fr 1fr;
 }
 
 .reviews-section {
   margin-top: 100px;
   margin-right: 40px;
-  /* border: 1px solid; */
 }
 
 ul {
@@ -172,19 +233,21 @@ ul {
 }
 
 .comment-section {
- border: 1px solid;
- padding: 20px;
- /* background-image: url("https://images.unsplash.com/photo-1617058074336-221c74dbb7c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80"); */
- /* color: white; */
+  border: 2px solid;
+  padding: 20px;
+  background-color: rgb(200, 199, 198);
+  border-radius: 30px;
 }
 
 .show-buttons {
   flex-direction: row-reverse;
-  padding-right: 350px;
+  padding-right: 190px;
   column-gap: 20px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="number"] {
   border: none;
   border-bottom: 2px solid rgb(220, 42, 42);
 }
@@ -193,6 +256,18 @@ input[type="text"] {
   position: absolute;
   right: 50px;
   top: 270px;
+}
+
+.fourofour-link {
+  color: red;
+}
+
+.fourofour-link:hover {
+  color: #696969;
+}
+
+.fourofour-img {
+  border-radius: 30px;
 }
 
 #footer {
@@ -224,72 +299,3 @@ input[type="text"] {
 #footer ul a:hover {
   color: rgba(255, 255, 255, 0.883);
 }
-
-.pagination-container {
-  display: flex;
-  list-style-type: none;
-}
-
-.pagination-item {
-  padding: 0 12px;
-  height: 32px;
-  text-align: center;
-  margin: auto 4px;
-  color: rgba(0, 0, 0, 0.87);
-  display: flex;
-  box-sizing: border-box;
-  align-items: center;
-  letter-spacing: 0.01071em;
-  border-radius: 16px;
-  line-height: 1.43;
-  font-size: 13px;
-  min-width: 32px;
-}
-
-/* &.dots:hover {
-      background-color: transparent;
-      cursor: default;
-    }
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
-      cursor: pointer;
-    }
-
-    &.selected {
-      background-color: rgba(0, 0, 0, 0.08);
-    } */
-
-/* .arrow {
-      &::before {
-        position: relative;
-        top: 3pt;
-        content: '';
-        display: inline-block;
-        width: 0.4em;
-        height: 0.4em;
-        border-right: 0.12em solid rgba(0, 0, 0, 0.87);
-        border-top: 0.12em solid rgba(0, 0, 0, 0.87);
-      }
-
-      &.left {
-        transform: rotate(-135deg) translate(-50%);
-      }
-
-      &.right {
-        transform: rotate(45deg);
-      }
-    }
-
-    &.disabled {
-      pointer-events: none;
-
-      .arrow::before {
-        border-right: 0.12em solid rgba(0, 0, 0, 0.43);
-        border-top: 0.12em solid rgba(0, 0, 0, 0.43);
-      }
-
-      &:hover {
-        background-color: transparent;
-        cursor: default;
-      }
-} */
