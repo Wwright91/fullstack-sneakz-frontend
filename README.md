@@ -1,4 +1,4 @@
-# Sneakz
+# Sneakz Frontend
 
 ## Online sneaker store to buy and sell sneakers. 
 
