@@ -1,9 +1,10 @@
+import "./NavBar.css"
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import { Badge } from "react-bootstrap";
-import hero from "../assets/sneakz-logo.jpeg";
+import hero from "../../assets/sneakz-logo.jpeg";
 
 export const NavBar = ({ cartItems }) => {
   let navigate = useNavigate();

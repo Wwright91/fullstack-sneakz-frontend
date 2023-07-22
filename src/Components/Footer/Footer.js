@@ -1,5 +1,5 @@
 import React from "react";
-import hero from "../assets/sneakz-logo.jpeg";
+import hero from "../../assets/sneakz-logo.jpeg";
 
 export const Footer = () => {
   const scrollContainer = () => {
