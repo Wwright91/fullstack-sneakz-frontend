@@ -1,0 +1,29 @@
+#footer {
+    background-color: rgb(164, 8, 8);
+    margin-top: 200px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-style: solid;
+    border-color: black;
+    border: solid;
+  }
+  
+  #footer ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 5px 0px 5px;
+    list-style-type: none;
+    color: rgba(255, 255, 255, 0.883);
+    align-items: center;
+  }
+  
+  #footer ul a {
+    font-size: medium;
+  }
+  
+  #footer ul a:hover {
+    color: rgba(255, 255, 255, 0.883);
+  }

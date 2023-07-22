@@ -1,3 +1,4 @@
+import "./Footer.css"
 import React from "react";
 import hero from "../../assets/sneakz-logo.jpeg";
 
